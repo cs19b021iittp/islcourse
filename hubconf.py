@@ -50,6 +50,20 @@ class cs19b021NN(nn.Module):
     )
     print('loading data')
     return training_data, test_data
+        
+      
+        
+    def create_dataloaders(training_data, test_data, batch_size=64):
+  # Create data loaders.
+  train_dataloader = DataLoader(training_data, batch_size=batch_size)
+  test_dataloader = DataLoader(test_data, batch_size=batch_size)
+
+  for X, y in test_dataloader:
+      print(f"Shape of X [N, C, H, W]: {X.shape}")
+      print(f"Shape of y: {y.shape} {y.dtype}")
+      break
+  print('returning dataloaders')
+  return train_dataloader, test_dataloader
   
     
 # sample invocation torch.hub.load(myrepo,'get_model',train_data_loader=train_data_loader,n_epochs=5, force_reload=True)
