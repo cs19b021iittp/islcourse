@@ -1,5 +1,14 @@
 import torch
 from torch import nn
+from torch.utils.data import DataLoader
+from torchvision import datasets
+from torchvision.transforms import ToTensor
+from sklearn.metrics import confusion_matrix
+import numpy as np
+from sklearn.metrics import precision_recall_fscore_support
+loss_fn = nn.CrossEntropyLoss()
+
+device = "cuda" if torch.cuda.is_available() else "cpu"
 
 def kali():
   print ('kali')
