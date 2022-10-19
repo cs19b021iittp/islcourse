@@ -16,14 +16,15 @@ def kali():
 # Define a neural network YOUR ROLL NUMBER (all small letters) should prefix the classname
 class cs19b021NN(nn.Module):
   def __init__(self):
-    super(cs19b021NN, self).__init__()
-      self.flatten = nn.Flatten()
-      self.linear_relu_stack = nn.Sequential(
-        nn.Linear(28*28, 512),
-        nn.ReLU(),
-        nn.Linear(512, 512),
-        nn.ReLU(),
-        nn.Linear(512, 10)
+        super(cs19b021NN, self).__init__()
+        self.flatten = nn.Flatten()
+        self.linear_relu_stack = nn.Sequential(
+            nn.Linear(28*28, 512),
+            nn.ReLU(),
+            nn.Linear(512, 512),
+            nn.ReLU(),
+            nn.Linear(512, 10)
+        )
         
         
   def forward(self, x):
@@ -68,16 +69,14 @@ class cs19b021NN(nn.Module):
     
 # sample invocation torch.hub.load(myrepo,'get_model',train_data_loader=train_data_loader,n_epochs=5, force_reload=True)
 def get_model(train_data_loader=None, n_epochs=10):
-  model = None
 
-  # write your code here as per instructions
-  # ... your code ...
-  # ... your code ...
-  # ... and so on ...
-  # Use softmax and cross entropy loss functions
-  # set model variable to proper object, make use of train_data
-  
-  print ('Returning model... (rollnumber: xx)')
+  model = cs19b021NN().to(device)
+
+  return model
+
+training_data, test_data = load_data();
+train_dataloader, test_dataloader = create_dataloaders(training_data, test_data, batch_size=64)
+  print ('Returning model... (cs19b021: xx)')
   
   return model
 
