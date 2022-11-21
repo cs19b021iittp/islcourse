@@ -2,10 +2,15 @@
 import torch
 from torch import nn
 import torch.optim as optim
+from sklearn.datasets import make_blobs, make_circles, load_digits
 import matplotlib.pyplot as plt
-from sklearn.datasets import make_blobs
+from matplotlib.colors import ListedColormap
+from sklearn.linear_model import LogisticRegression
+import numpy as np
 from sklearn.cluster import KMeans
-from sklearn.metrics import silhouette_samples, silhouette_score
+from sklearn.metrics.cluster import homogeneity_score, completeness_score, v_measure_score
+from sklearn import metrics
+
 
 # You can import whatever standard packages are required
 
@@ -17,57 +22,40 @@ from sklearn.metrics import silhouette_samples, silhouette_score
 
 def get_data_blobs(n_points=100):
   pass
-  # write your code here
-  # Refer to sklearn data sets
-  X, y = None
-  # write your code ...
-  //X, y = make_blobs(n_samples=nb_samples, n_features=2, centers=3, cluster_std=1.5 
-                    X, y = make_blobs(n_points,
-                  n_features=2,
-                  centers=4,
-                  cluster_std=1,
-                  center_box=(-10.0, 10.0),
-                  shuffle=True,
-                  random_state=1)
+  X, y = make_blobs(n_samples=n_points, centers=3, n_features=2,random_state=0)
   return X,y
 
 def get_data_circles(n_points=100):
   pass
-  # write your code here
-  # Refer to sklearn data sets
-  X, y = None
-  # write your code ...
+  X, y = make_circles(n_samples=n_points, shuffle=True,  factor=0.3, noise=0.05, random_state=0)
   return X,y
 
 def get_data_mnist():
   pass
-  # write your code here
-  # Refer to sklearn data sets
-  X,y = None
-  # write your code ...
+  digits = load_digits()
+  X=digits.data
+  y=digits.target
   return X,y
 
 def build_kmeans(X=None,k=10):
   pass
   # k is a variable, calling function can give a different number
   # Refer to sklearn KMeans method
-  km = None # this is the KMeans object
-  # write your code ...
+  km = KMeans(n_clusters=k, random_state=0).fit(X)
   return km
 
 def assign_kmeans(km=None,X=None):
   pass
-  # For each of the points in X, assign one of the means
-  # refer to predict() function of the KMeans in sklearn
-  # write your code ...
-  ypred = None
-  return ypred
+  ypred = km.predict(X)
+  return ypred
 
 def compare_clusterings(ypred_1=None,ypred_2=None):
   pass
   # refer to sklearn documentation for homogeneity, completeness and vscore
-  h,c,v = 0,0,0 # you need to write your code to find proper values
-  return h,c,v
+  h=metrics.homogeneity_score(ypred_1, ypred_2)
+  c=metrics.completeness_score(ypred_1, ypred_2)
+  v=metrics.v_measure_score(ypred_1, ypred_2)
+  return h,c,v
 
 ###### PART 2 ######
 
