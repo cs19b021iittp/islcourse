@@ -160,19 +160,25 @@ def perform_gridsearch_cv_multimetric(model=None, param_grid=None, cv=5, X=None,
 
 ###### PART 3 ######
 
+import torch
+import torch.nn as nn
+from torch.autograd import Variable
+from sklearn.model_selection import train_test_split
+from torch.utils.data import DataLoader, TensorDataset
+
 class MyNN(nn.Module):
   def __init__(self,inp_dim=64,hid_dim=13,num_classes=10):
-    super(MyNN,self)
+    super(MyNN,self).__init__()
     
-    self.fc_encoder = None # write your code inp_dim to hid_dim mapper
-    self.fc_decoder = None # write your code hid_dim to inp_dim mapper
-    self.fc_classifier = None # write your code to map hid_dim to num_classes
+    self.fc_encoder = nn.Linear(in_features=inp_dim,out_features=hid_dim)
+    self.fc_decoder = nn.Linear(in_features=hid_dim,out_features=inp_dim) # write your code hid_dim to inp_dim mapper
+    self.fc_classifier = nn.Linear(in_features=hid_dim,out_features=num_classes) # write your code to map hid_dim to num_classes
     
-    self.relu = None #write your code - relu object
-    self.softmax = None #write your code - softmax object
+    self.relu = nn.ReLU() #write your code - relu object
+    self.softmax =nn.softmax() #write your code - softmax object
     
   def forward(self,x):
-    x = None # write your code - flatten x
+    x = torch.nn.functional.normalize(x, p=2.0, dim = 0) # write your code - flatten x
     x_enc = self.fc_encoder(x)
     x_enc = self.relu(x_enc)
     
