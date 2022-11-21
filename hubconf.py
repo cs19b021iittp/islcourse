@@ -2,6 +2,10 @@
 import torch
 from torch import nn
 import torch.optim as optim
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_blobs
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_samples, silhouette_score
 
 # You can import whatever standard packages are required
 
@@ -17,6 +21,14 @@ def get_data_blobs(n_points=100):
   # Refer to sklearn data sets
   X, y = None
   # write your code ...
+  //X, y = make_blobs(n_samples=nb_samples, n_features=2, centers=3, cluster_std=1.5 
+                    X, y = make_blobs(n_points,
+                  n_features=2,
+                  centers=4,
+                  cluster_std=1,
+                  center_box=(-10.0, 10.0),
+                  shuffle=True,
+                  random_state=1)
   return X,y
 
 def get_data_circles(n_points=100):
