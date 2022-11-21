@@ -9,7 +9,6 @@ import torch.nn as tn
 import torchvision.transforms as tt
 import torch.utils as utils
 
-%matplotlib inline
 import matplotlib.pyplot as plt
 import seaborn
 
@@ -222,24 +221,3 @@ def get_mnist_tensor():
   # write your code
   return X,y
 
-def get_loss_on_single_point(mynn=None,x0,y0):
-  y_pred, xencdec = mynn(x0)
-  lossval = mynn.loss_fn(x0,y0,y_pred,xencdec)
-  # the lossval should have grad_fn attribute set
-  return lossval
-
-def train_combined_encdec_predictor(mynn=None,X,y, epochs=11):
-  # X, y are provided as tensor
-  # perform training on the entire data set (no batches etc.)
-  # for each epoch, update weights
-  
-  optimizer = optim.SGD(mynn.parameters(), lr=0.01)
-  
-  for i in range(epochs):
-    optimizer.zero_grad()
-    ypred, Xencdec = mynn(X)
-    lval = mynn.loss_fn(X,y,ypred,Xencdec)
-    lval.backward()
-    optimzer.step()
-    
-  return mynn
