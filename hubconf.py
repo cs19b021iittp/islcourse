@@ -80,9 +80,14 @@ def compare_clusterings(ypred_1=None,ypred_2=None):
 
 ###### PART 2 ######
 
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
 def build_lr_model(X=None, y=None):
   pass
+  data,target=get_data_mnist()
+  X_train_digit, X_test_digit, y_train_digit, y_test_digit = train_test_split(data,target, test_size=0.33, random_state=42)
   lr_model = None
+ 
   # write your code...
   # Build logistic regression, refer to sklearn
   return lr_model
